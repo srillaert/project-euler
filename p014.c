@@ -15,7 +15,7 @@ unsigned int length_collatz_sequence(unsigned int n) {
 	unsigned int length = 
 		n % 2 == 0 ?
 			length_collatz_sequence(n / 2) + 1 : // n is even
-			length_collatz_sequence(3 * n + 1) + 1; // n is odd
+			length_collatz_sequence((3 * n + 1) / 2) + 2; // n is odd, then 3*n+1 is even on which we can apply immediately the next step of dividing by 2
 	if (n < TILL)
 		memoization_array[n] = length;	
 	return length;
