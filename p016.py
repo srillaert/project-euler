@@ -1,6 +1,4 @@
-number = 2
-for i in range(1,1000):
-    number *= 2
+number = 2**1000
 sum = 0
 while(number > 0):
     sum += (number % 10)
