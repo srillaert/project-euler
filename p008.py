@@ -4,9 +4,9 @@ with open("p008.input") as input_file:
 
 greatest_product = 0
 
-for i in range(length,1000-length):
+for i in range(1000-length):
     product = 1
-    for j in range(0,length):
+    for j in range(length):
         product *= int(line[i+j])
     if product > greatest_product:
         greatest_product = product
