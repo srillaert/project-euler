@@ -12,13 +12,14 @@ def number_quadratic_primes(a, b):
 max_a = 0
 max_b = 0
 max_number_primes = 0
-for a in range(-999, 1000):
-	for b in range(-999, 1000):
-		n = number_quadratic_primes(a, b)
-		if n > max_number_primes:
-			max_a = a
-			max_b = b
-			max_number_primes = n
+for b in range(-999, 1000):
+	if is_prime(abs(b)):
+		for a in range(-999, 1000):
+			n = number_quadratic_primes(a, b)
+			if n > max_number_primes:
+				max_a = a
+				max_b = b
+				max_number_primes = n
 
 result = max_a * max_b
 print(result)
