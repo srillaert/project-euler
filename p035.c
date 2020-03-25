@@ -1,3 +1,4 @@
+#include<math.h>
 #include<stdbool.h>
 #include<stdio.h>
 
@@ -8,9 +9,10 @@ bool is_prime[TILL];
 void initialize_sieve_of_eratosthenes() {
 	for(int i=2; i<TILL; i++) 
 		is_prime[i] = true;
-	for(int i=2; i<(TILL/2); i++)
+	int sqrt_till = sqrt(TILL);
+	for(int i=2; i<sqrt_till; i++)
 		if(is_prime[i] == true)
-			for(int multiple=i*2; multiple<TILL; multiple+=i)
+			for(int multiple=i*i; multiple<TILL; multiple+=i)
 				is_prime[multiple] = false;
 }
 
