@@ -1,20 +1,12 @@
+# Based on https://github.com/nayuki/Project-Euler-solutions/blob/master/python/p035.py
 from prime import get_is_prime_array
 
 till = 10**6
 is_prime = get_is_prime_array(till)
 
-result = 1
-for n in range(3, till, 2):
-	if is_prime[n]:
-		rotate = str(n)
-		all_prime = True
-		while all_prime:
-			rotate = rotate[-1] + rotate[0:-1]
-			int_rotate = int(rotate)
-			if is_prime[int_rotate] == False:
-				all_prime = False
-			if int_rotate == n:
-				break
-		if all_prime:
-			result += 1
+def is_circular_prime(n):
+	str_n = str(n)
+	return all(is_prime[int(str_n[i:] + str_n[:i])] for i in range(len(str_n)))
+
+result = sum(1 for n in range(till) if is_circular_prime(n))
 print(result)
