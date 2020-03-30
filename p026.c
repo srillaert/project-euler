@@ -23,7 +23,7 @@ int length_recurring_cycle(int d) {
 int main() {
 	int d_longest_cycle = -1;
 	int max_length = 0;
-	for(int d=2; d<TILL_D; d++) {
+	for(int d=TILL_D-1; d>max_length /* dividend d can maximum have a cycle of length d */; d--) {
 		int length = length_recurring_cycle(d);
 		if(length > max_length) {
 			max_length = length;
