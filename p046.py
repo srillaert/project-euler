@@ -1,22 +1,16 @@
-from prime import get_is_prime_array
+from prime import is_prime
 
-is_prime_array = get_is_prime_array(1000000)
-
-def confirms_conjecture(n):
+def is_counterexample(n):
 	j = 1
 	while True:
 		difference = n - 2 * j * j
 		if difference < 2:
-			return False
-		if is_prime_array[difference]:
 			return True
+		if is_prime(difference):
+			return False
 		j += 1
 
-n = 7
-while True:
+n = 9
+while is_prime(n) or not is_counterexample(n):
 	n += 2
-	if is_prime_array[n]:
-		continue
-	if not confirms_conjecture(n):
-		break
 print(n)
