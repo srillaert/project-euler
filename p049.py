@@ -1,3 +1,4 @@
+# 'Simple' solution because based on the assumption that the terms have to increase by exact 3330, see also the discussion on https://www.mathblog.dk/project-euler-49-arithmetic-sequences-primes-permutations/
 from prime import get_is_prime_array
 
 step = 3330
