@@ -37,22 +37,24 @@ class PlayerHand:
             counter = Counter(self.sorted_card_values)
             two_most_common = counter.most_common(2)
             count_most_common = two_most_common[0][1]
-            self.rank_value = two_most_common[0][0]
-            count_second_most_common = two_most_common[1][1]
-            if count_most_common == 4:
-                self.rank = Rank.FOUR_OF_A_KIND
-            elif count_most_common == 3:
-                if count_second_most_common == 2:
-                    self.rank = Rank.FULL_HOUSE
-                else:
-                    self.rank = Rank.THREE_OF_A_KIND
-            elif count_most_common == 2:
-                if count_second_most_common == 2:
-                    self.rank = Rank.TWO_PAIRS
-                else:
-                    self.rank = Rank.ONE_PAIR
-            else:
+            if count_most_common == 1:
+                self.rank_value = self.sorted_card_values[4]
                 self.rank = Rank.HIGH_CARD
+            else:
+                self.rank_value = two_most_common[0][0]
+                count_second_most_common = two_most_common[1][1]
+                if count_most_common == 4:
+                    self.rank = Rank.FOUR_OF_A_KIND
+                elif count_most_common == 3:
+                    if count_second_most_common == 2:
+                        self.rank = Rank.FULL_HOUSE
+                    else:
+                        self.rank = Rank.THREE_OF_A_KIND
+                else:
+                    if count_second_most_common == 2:
+                        self.rank = Rank.TWO_PAIRS
+                    else:
+                        self.rank = Rank.ONE_PAIR                
 
 def is_win_for_player1(player1, player2):
     if player1.rank == player2.rank:
@@ -74,6 +76,15 @@ if __name__ == "__main__":
             if is_win_for_player1(player1, player2):
                 result += 1
     print(result)
+
+def test_high_card_rank_value():
+    player1 = PlayerHand("8C TS KC 9H 4S") # High card King
+    assert player1.rank == Rank.HIGH_CARD
+    assert player1.rank_value == 13
+    player2 = PlayerHand("7D 2S 5D 3S AC") # High card Ace
+    assert player2.rank == Rank.HIGH_CARD
+    assert player2.rank_value == 14
+    assert not is_win_for_player1(player1, player2)
 
 def test_royal_flush():
     player = PlayerHand("TD AD JD QD KD")
