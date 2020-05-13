@@ -1,4 +1,17 @@
-from math import sqrt
+from math import ceil, sqrt
+
+def get_factors(n):
+	till = ceil(sqrt(n))
+	d = 2
+	while d <= till:
+		if n % d == 0:
+			yield d
+			while n % d == 0:
+				n //= d
+			till = ceil(sqrt(n))
+		d += 1
+	if n != 1:
+		yield n
 
 # Based on list_primality(n) of https://github.com/nayuki/Project-Euler-solutions/blob/master/python/eulerlib.py
 def get_is_prime_array(till):
