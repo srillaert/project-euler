@@ -2,13 +2,13 @@
 
 #define TILL 20
 
-int main() {
+unsigned int get_least_common_multiple() {
 	unsigned int array[TILL];
 
 	for(unsigned int i = 0; i < TILL; i++) 
 		array[i] = i + 1;
 
-	unsigned int result = 1;
+	unsigned int lcm = 1;
 
 	for(unsigned int divisor = 2; divisor <= TILL; divisor++) {
 		int continue_search = 1;
@@ -21,10 +21,15 @@ int main() {
 				}
 			}
 			if(continue_search)
-				result *= divisor;
+				lcm *= divisor;
 		}
 	}
 
-	printf("%u\n", result);
+	return lcm;
+}
+
+int main() {
+	unsigned int lcm = get_least_common_multiple();
+	printf("%u\n", lcm);
 }
 
