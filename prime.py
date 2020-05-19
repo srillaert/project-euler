@@ -24,6 +24,17 @@ def get_is_prime_array(till):
 				result[j] = False
 	return result
 
+def get_primes():
+    yield 2
+    yield 3
+    n = 5
+    while True:
+        if is_prime(n):
+            yield n
+        if is_prime(n + 2):
+            yield n + 2
+        n += 6
+
 def is_prime(n):
 	if n == 2:
 		return True
