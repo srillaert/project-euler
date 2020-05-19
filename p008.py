@@ -1,14 +1,15 @@
-length = 13
-with open("p008.input") as input_file:
-    line = input_file.read().replace("\n", "")
+from functools import reduce # Valid in Python 2.6+, required in Python 3, from https://stackoverflow.com/questions/595374/whats-the-function-like-sum-but-for-multiplication-product
+import operator
 
-greatest_product = 0
+def get_greatest_product(length):
+    with open("p008.input") as input_file:
+        digits = list(int(c) for c in input_file.read().replace("\n", ""))
+    greatest_product = max(reduce(operator.mul, digits[i:i+length], 1) for i in range(1000-length))
+    return greatest_product
 
-for i in range(1000-length):
-    product = 1
-    for j in range(length):
-        product *= int(line[i+j])
-    if product > greatest_product:
-        greatest_product = product
+def test_example():
+    assert get_greatest_product(4) == 5832
 
-print(greatest_product)
+if __name__ == "__main__":
+    greatest_product = get_greatest_product(13)
+    print(greatest_product)
