@@ -20,6 +20,7 @@ int main() {
 	input_file = fopen("p011.input", "r");
 	unsigned int *current = numbers;
 	while(fscanf(input_file, "%u", current++) == 1);
+	fclose(input_file);
 
 	// Find maximum
 	for(int i = 0; i < GRID_SIZE; i++) {
