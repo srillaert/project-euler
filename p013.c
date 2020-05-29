@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-	FILE *fp;
+	FILE *stream;
 	char line[50];
 	unsigned int sum[52];
 
@@ -10,12 +10,12 @@ int main() {
 		sum[i] = 0;
 
 	// add the digits from the file
-	fp = fopen("p013.input", "r");
-	while(fscanf(fp, "%s", line) == 1) {
+	stream = fopen("p013.input", "r");
+	while(fscanf(stream, "%s", line) == 1) {
 		for(int i=0; i<50; i++)
 			sum[i+2] += line[i] - '0';
 	}	
-	fclose(fp);
+	fclose(stream);
 
 	// make the result decimal
 	for(int i=51; i>0; i--) {
