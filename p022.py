@@ -1,15 +1,7 @@
-with open('p022.input') as file:
-	names = file.read().replace('"','').split(',')
+def get_alphabetical_value(name):
+	return sum(ord(c) - ord('A') + 1 for c in name)
+
+names = open('p022.input').read().replace('"','').split(',')
 names.sort()
-
-total_names_score = 0
-substract_value = ord('A') - 1
-for i in range(0, len(names)):
-	name = names[i]
-	alphabetical_value = 0
-	for j in range(0, len(name)):
-		alphabetical_value += ord(name[j]) - substract_value  
-	name_score = alphabetical_value * (i + 1)
-	total_names_score += name_score
-
+total_names_score = sum(position * get_alphabetical_value(name) for position, name in enumerate(names, 1))
 print(total_names_score)
