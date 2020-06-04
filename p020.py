@@ -1,8 +1,3 @@
-factorial = 1
-for i in range(1, 101):
-	factorial *= i
-sum_digits = 0
-while factorial > 0:
-	sum_digits += (factorial % 10)
-	factorial //= 10
+from math import factorial
+sum_digits = sum(int(c) for c in str(factorial(100)))
 print(sum_digits)
