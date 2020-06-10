@@ -1,15 +1,12 @@
 from itertools import count
 
 def get_least_common_multiple_fast(to):
-    quotients = list(range(2, to + 1))
+    quotients = list(range(to + 1))
     result = 1
-    for i in range(len(quotients)):
-        divisor = quotients[i]
-        if divisor == 1:
-            continue
-        for j in range(2 * i + 2, len(quotients), i + 2):
-            quotients[j] //= divisor
-        result *= divisor
+    for i in range(2, len(quotients)):
+        result *= quotients[i]
+        for j in range(2 * i, len(quotients), i):
+            quotients[j] //= quotients[i]
     return result
 
 def get_least_common_multiple_slow(to):

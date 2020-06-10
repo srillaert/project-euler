@@ -9,7 +9,6 @@ for a in range(start,end,-1):
             break
         string = str(product)
         if string == string[::-1]:
-            #print("a = " + str(a) + ", b = " + str(b) + ", product = " + string)
             largest_palindrome = product
 
 print(largest_palindrome)
