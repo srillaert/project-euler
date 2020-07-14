@@ -17,16 +17,6 @@ def prime_factors(n):
 	if n != 1:
 		yield n
 
-def prev_prime_factors(n):
-    i = 2
-    while i*i <= n:
-        while n%i == 0:
-            yield i
-            n //= i
-        i += 1
-    if n != 1:
-        yield n
-
 def prime_factor_exponents(n):
     current_factor = 0
     count = 0
