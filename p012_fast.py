@@ -1,4 +1,23 @@
+def trial_divisors():
+	yield 2
+	yield 3
+	n = 5
+	while True: # Odd numbers not divisible by 3
+		yield n
+		yield n + 2
+		n += 6
+
 def prime_factors(n):
+	for d in trial_divisors():
+		if d*d > n:
+			break
+		while n%d == 0:
+			yield d
+			n //= d
+	if n != 1:
+		yield n
+
+def prev_prime_factors(n):
     i = 2
     while i*i <= n:
         while n%i == 0:
