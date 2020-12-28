@@ -1,10 +1,11 @@
 #include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 
 int main(void) {
-	unsigned long long number = 600851475143; // 13195
-	unsigned long long till = sqrt(number);
-	unsigned long long n = 2;
+	uint_fast64_t number = 600851475143; // 13195
+	uint_fast64_t till = sqrt(number);
+	uint_fast64_t n = 2;
 
 	while(n <= till) {
 		while(number % n == 0) {
@@ -13,5 +14,5 @@ int main(void) {
 		}
 		n += 1;
 	}
-	printf("%llu\n", number);
+	printf("%lu\n", number);
 }
