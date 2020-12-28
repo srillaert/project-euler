@@ -1,23 +1,25 @@
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
 #define TILL 20
 
-unsigned int get_least_common_multiple() {
-	unsigned int array[TILL];
+uint_fast32_t get_least_common_multiple() {
+	uint_fast8_t array[TILL];
 
-	for(unsigned int i = 0; i < TILL; i++) 
+	for(uint_fast8_t i = 0; i < TILL; i++) 
 		array[i] = i + 1;
 
-	unsigned int lcm = 1;
+	uint_fast32_t lcm = 1;
 
-	for(unsigned int divisor = 2; divisor <= TILL; divisor++) {
-		int continue_search = 1;
+	for(uint_fast8_t divisor = 2; divisor <= TILL; divisor++) {
+		bool continue_search = true;
 		while(continue_search) {
-			continue_search = 0;
+			continue_search = false;
 			for(int i = 0; i < TILL; i++) {
 				if(array[i] % divisor == 0) {
 					array[i] /= divisor;
-					continue_search = 1;
+					continue_search = true;
 				}
 			}
 			if(continue_search)
@@ -29,7 +31,7 @@ unsigned int get_least_common_multiple() {
 }
 
 int main() {
-	unsigned int lcm = get_least_common_multiple();
-	printf("%u\n", lcm);
+	uint_fast32_t lcm = get_least_common_multiple();
+	printf("%lu\n", lcm);
 }
 
