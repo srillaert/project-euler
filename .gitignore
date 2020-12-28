@@ -1,7 +1,11 @@
+*
+!*/
+!*.*
+!Makefile
+
 *.swp
 
 a.out
-
 __pycache__
 *.pyc
 
