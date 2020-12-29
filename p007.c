@@ -1,21 +1,23 @@
 #include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
-int is_prime(unsigned int n) {
-	unsigned int till = sqrt(n);
-	for(unsigned int i = 3; i <= till; i+=2)
+bool is_prime(uint_fast32_t n) {
+	uint_fast32_t till = sqrt(n);
+	for(uint_fast32_t i = 3; i <= till; i+=2)
 		if(n%i == 0)
-			return 0;
-	return 1;
+			return false;
+	return true;
 }
 
 
 int main() {
-	unsigned int number = 1;
-	for(unsigned int count = 1; count < 10001;) {
+	uint_fast32_t number = 1;
+	for(uint_fast16_t count = 1; count < 10001;) {
 		number += 2;
 		if(is_prime(number))
 			count++;
 	}
-	printf("%u\n", number);
+	printf("%lu\n", number);
 }
