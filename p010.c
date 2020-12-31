@@ -4,26 +4,27 @@
 #include <stdio.h>
 
 #define MAX 2000000
+#define SIZE_SIEVE_ARRAY ((MAX - 1) / 8) + 1
 
 int main() {
 	// Initialize the sieve of Eratosthenes
-	bool sieve[MAX - 2];
-	for(size_t i = 0; i < (MAX - 2); i++)
-		sieve[i] = true; // By default, set all the numbers to be primes
+	uint8_t sieve[SIZE_SIEVE_ARRAY];
+	for(uint_fast32_t i = 0; i < SIZE_SIEVE_ARRAY; i++)
+		sieve[i] = UINT8_MAX; // By default, set all the numbers to be primes
 
 	// Perform the sieve
-	size_t till = floor(sqrt(MAX));
-	for(size_t i = 2; i <= till; i++) {
-		if(sieve[i-2])  // If the number is a prime, check off all its multiples
-			for(size_t j = 2*i; j < MAX; j += i)
-				sieve[j-2] = false;
+	uint_fast32_t till = floor(sqrt(MAX));
+	for(uint_fast32_t i = 2; i <= till; i++) {
+		if(sieve[i / 8] & (1 << (i % 8)))  // If the number is a prime, check off all its multiples
+			for(uint_fast32_t j = 2*i; j < MAX; j += i)
+				sieve[j / 8] &= ~(1 << (j % 8));
 	}
 
 	// Calculate the sum of the primes
 	uint_fast64_t sum = 0;
-	for(size_t i = 0; i < (MAX - 2); i++)
-		if(sieve[i])
-			sum += i + 2;
+	for(uint_fast32_t i = 2; i < MAX; i++)
+		if(sieve[i / 8] & (1 << (i % 8)))
+			sum += i;
 
 	printf("%lu\n", sum);
 }
