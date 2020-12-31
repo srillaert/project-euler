@@ -1,13 +1,14 @@
 #include <stdio.h>
+#include <stdint.h>
 
 #define GRID_WIDTH 20
 #define GRID_SIZE GRID_WIDTH * GRID_WIDTH
 
-unsigned int numbers[GRID_SIZE];
-unsigned int maximum = 0;
+uint_fast8_t numbers[GRID_SIZE];
+uint_fast32_t maximum = 0;
 
 void update_maximum(int i, int step) {
-	unsigned int product = 1;
+	uint_fast32_t product = 1;
 	for(int j = i; j != (i + 4 * step); j += step)
 		product *= numbers[j];
 	if(product > maximum)
@@ -18,8 +19,8 @@ int main() {
 	// Read input file
 	FILE *input_file;
 	input_file = fopen("p011.input", "r");
-	unsigned int *current = numbers;
-	while(fscanf(input_file, "%u", current++) == 1);
+	uint_fast8_t *current = numbers;
+	while(fscanf(input_file, "%hhu", current++) == 1);
 	fclose(input_file);
 
 	// Find maximum
@@ -33,5 +34,5 @@ int main() {
 	}
 
 	// Print out result
-	printf("%u\n", maximum);
+	printf("%lu\n", maximum);
 }	
