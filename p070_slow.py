@@ -2,17 +2,6 @@ from functools import reduce # Valid in Python 2.6+, required in Python 3
 import operator
 from prime import get_factors
 
-# def gcd(a, b):
-#     if b > a:
-#         a, b = b, a
-#     while(b != 0):
-#         a, b = b, a % b
-#     return a
-
-# def test_gcd():
-#     assert gcd(9, 8) == 1
-#     assert gcd(9, 6) == 3
-
 # def euler_totient_function_old(n):
 #     return sum(1 for i in range(2, n) if gcd(n, i) == 1) + 1
 
