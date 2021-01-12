@@ -1,28 +1,37 @@
+#include<stdbool.h>
 #include<stdio.h>
+#include<stdint.h>
 
 #define POWER_OF_TWO 1000
 #define NUMBER_OF_BYTES (POWER_OF_TWO / 8) + 1
 #define ONE_POSITION (POWER_OF_TWO) % 8
 
 int main() {
-	unsigned char parts[NUMBER_OF_BYTES];
-	parts[NUMBER_OF_BYTES - 1] = 1 << ONE_POSITION;
+	// initialize large_number to 2^POWER_OF_TWO, i.e., 2^1000
+	uint8_t large_number[NUMBER_OF_BYTES];
+	large_number[NUMBER_OF_BYTES - 1] = 1 << ONE_POSITION;
 	for(int i=0; i<(NUMBER_OF_BYTES - 1); i++)
-		parts[i] = 0;
-	int part_index = NUMBER_OF_BYTES - 1;
-	unsigned int result = 0;
+		large_number[i] = 0;
 
-	while(part_index > -1) {
-		unsigned int remainder = 0;
-		for(int i=part_index; i>=0; i--) {
-			unsigned int dividend = remainder * 256 + parts[i];
-			parts[i] = dividend / 10;
+	int large_number_index = NUMBER_OF_BYTES - 1;
+	uint16_t sum_decimal_digits = 0;
+	while(true) {
+		// divide large_number by 10
+		uint8_t remainder = 0;
+		for(int i=large_number_index; i>=0; i--) {
+			uint16_t dividend = remainder * 256 + large_number[i];
+			large_number[i] = dividend / 10;
 			remainder = dividend % 10;
 		}
-		result += remainder;
-		if(parts[part_index] == 0)
-			part_index--;
+
+		// add the remainder of the division by 10 to sum_decimal_digits
+		sum_decimal_digits += remainder;
+
+		if(large_number[large_number_index] == 0) { // can we reduce the array used for division ?
+			if (large_number_index == 0) break; // we are done
+			large_number_index--;
+		}
 	}
 
-	printf("%u\n", result);
+	printf("%u\n", sum_decimal_digits);
 }
