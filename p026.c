@@ -6,15 +6,15 @@
 
 // returns the length of the recurring cyle in the decimal fraction of 1/d
 // returns 0 when there is no recurring cycle
-int length_recurring_cycle(int d) {
+unsigned int length_recurring_cycle(unsigned int d) {
 	// initialize the array that holds the last position of the different remainders
-	int remainder_to_position[TILL_D]; // there are d possible different remainders : 0, 1, ..., d-1.
-	for(int i=0; i<TILL_D; i++)
+	unsigned int remainder_to_position[TILL_D]; // there are d possible different remainders : 0, 1, ..., d-1.
+	for(unsigned int i=0; i<TILL_D; i++)
 		remainder_to_position[i] = REMAINDER_TO_POSITION_NOT_SET;
 
-	int remainder = 1; // 1 is the number we divide
-	int position = FIRST_POSITION;
-	while(remainder_to_position[remainder] == REMAINDER_TO_POSITION_NOT_SET) {
+	unsigned int remainder = 1; // 1 is the number we divide
+	unsigned int position = FIRST_POSITION;
+	do {
 		remainder_to_position[remainder] = position;
 
 		// algorithm of long division
@@ -25,19 +25,19 @@ int length_recurring_cycle(int d) {
 		remainder = remainder % d;
 
 		if(remainder == 0) return 0; // there is no cycle
-	}
-	return position - remainder_to_position[remainder] + 1;
+	} while(remainder_to_position[remainder] == REMAINDER_TO_POSITION_NOT_SET);
+	return position - remainder_to_position[remainder];
 }
 
 int main() {
-	int d_longest_cycle = -1;
-	int max_length = 0;
-	for(int d=TILL_D; d>max_length /* dividend d can maximum have a cycle of length d */; d--) {
-		int length = length_recurring_cycle(d);
+	unsigned int d_longest_cycle = -1;
+	unsigned int max_length = 0;
+	for(unsigned int d=TILL_D; d>max_length /* dividend d can maximum have a cycle of length d */; d--) {
+		unsigned int length = length_recurring_cycle(d);
 		if(length > max_length) {
 			max_length = length;
 			d_longest_cycle = d;
 		}
 	}
-	printf("%d\n", d_longest_cycle);
+	printf("%u\n", d_longest_cycle);
 }
