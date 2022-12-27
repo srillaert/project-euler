@@ -19,25 +19,25 @@ def solutions_magic_ngon_ring(n):
         if valid_solution(perm, n):
             yield perm
 
-def get_max_solution(solutions, n, length):
+def get_max_solution(n, length):
+    solutions = solutions_magic_ngon_ring(n)
     max = 0
     for solution in solutions:
-        string = ""
-        for i in range(n):
-            string += str(solution[n+i]) + str(solution[i]) + str(solution[(i+1)%n])
+        string = "".join(str(solution[n+i]) + str(solution[i]) + str(solution[(i+1)%n]) for i in range(n))
         if len(string) == length:
             number = int(string)
             if number > max:
                 max = number
     return max
 
-def test_3gon():
+def test_solutions_magic_ngon_ring_3gon():
     solutions = list(solutions_magic_ngon_ring(3))
     assert len(solutions) == 8
-    max_solution = get_max_solution(solutions, 3, 9)
+
+def test_get_max_solution_3gon():
+    max_solution = get_max_solution(3, 9)
     assert max_solution == 432621513
 
 if __name__ == "__main__":
-    solutions = list(solutions_magic_ngon_ring(5))
-    max_solution = get_max_solution(solutions, 5, 16)
+    max_solution = get_max_solution(5, 16)
     print(max_solution)
