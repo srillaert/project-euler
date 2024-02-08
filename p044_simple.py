@@ -1,3 +1,4 @@
+from itertools import count
 from math import sqrt
 
 def pentagonal(n):
@@ -9,13 +10,11 @@ def is_pentagonal(n):
     return r % 6 == 5
 
 def solution():
-    k = 2
-    while True:
+    for k in count(2):
         pk = pentagonal(k)
         for j in range(k-1, 0, -1):
             pj = pentagonal(j)
             if is_pentagonal(pk + pj) and is_pentagonal(pk - pj):
                 return pk - pj
-        k += 1
 
 print(solution())
