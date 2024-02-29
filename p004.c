@@ -10,16 +10,21 @@ uint_fast32_t reverse(uint_fast32_t n) {
 	return result;
 }
 
-int main() {
-	uint_fast32_t largest = 0;
+uint_fast32_t largest_palindrome_product() {
+	uint_fast32_t largest_palindrome = 0;
 	for(uint_fast16_t a = 999; a >= 100; a--) {
 		for(uint_fast16_t b = 999; b >= a; b--) {
 			uint_fast32_t product = a * b;
-			if(product < largest)
+			if(product < largest_palindrome)
 				break;
 			if(product == reverse(product))
-				largest = product;
+				largest_palindrome = product;
 		}
 	}
-	printf("%lu\n", largest);
+	return largest_palindrome;
+}
+
+int main() {
+	uint_fast32_t solution = largest_palindrome_product();
+	printf("%lu\n", solution);
 }
