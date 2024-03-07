@@ -15,7 +15,7 @@ uint_fast32_t largest_palindrome_product() {
 	for(uint_fast16_t a = 999; a >= 100; a--) {
 		for(uint_fast16_t b = 999; b >= a; b--) {
 			uint_fast32_t product = a * b;
-			if(product < largest_palindrome)
+			if(product <= largest_palindrome)
 				break;
 			if(product == reverse(product))
 				largest_palindrome = product;
