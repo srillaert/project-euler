@@ -16,7 +16,7 @@ int main() {
 	uint_fast32_t till = floor(sqrt(MAX));
 	for(uint_fast32_t i = 2; i <= till; i++) {
 		if(sieve[i / 8] & (1 << (i % 8)))  // If the number is a prime, check off all its multiples
-			for(uint_fast32_t j = 2*i; j < MAX; j += i)
+			for(uint_fast32_t j = i*i; j < MAX; j += i)
 				sieve[j / 8] &= ~(1 << (j % 8));
 	}
 
