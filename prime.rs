@@ -1,15 +1,22 @@
 /// Uses the sieve of Eratosthenes to generate a Vec<bool> where indices represent numbers and values indicate primality.
-pub fn get_is_prime_array(till: usize) -> Vec<bool> {
-    let mut result = vec![true; till + 1];
-    result[0] = false;
-    result[1] = false;
-    let square_root = (till as f64).sqrt() as usize;
+pub fn get_is_prime_vector(exclusive_upper_bound: usize) -> Vec<bool> {
+    let mut result = vec![true; exclusive_upper_bound];
+    initialize_is_prime_slice(&mut result);
+    result
+}
+
+// The slice needs to be pre-filled with true values
+// Runs the sieve of Eratosthenes where indices represent numbers and values indicate primality
+// Using a slice allows the sieve to be used with both compiled time allocated arrays and dynamically allocated vectors
+pub fn initialize_is_prime_slice(slice: &mut [bool]) {
+    slice[0] = false;
+    slice[1] = false;
+    let square_root = ((slice.len() - 1) as f64).sqrt() as usize;
     for i in 0..=square_root {
-        if result[i] {
-            for j in (i*i..=till).step_by(i) {
-                result[j] = false;
+        if slice[i] {
+            for j in (i*i..slice.len()).step_by(i) {
+                slice[j] = false;
             }
         }
     }
-    result
 }
