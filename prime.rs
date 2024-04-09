@@ -1,4 +1,5 @@
 /// Uses the sieve of Eratosthenes to generate a Vec<bool> where indices represent numbers and values indicate primality.
+#[allow(dead_code)]
 pub fn get_is_prime_vector(exclusive_upper_bound: usize) -> Vec<bool> {
     let mut result = vec![true; exclusive_upper_bound];
     initialize_is_prime_slice(&mut result);
