@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-void assert(bool expected, bool actual, char* message) {
+void assert_bool(bool expected, bool actual, char* message) {
 	if(expected != actual) {
 		printf("expected %d but actual %d for %s\n", expected, actual, message);
 	}
@@ -19,7 +19,7 @@ void assert_sum_decimal_split(int64_t to_split, int64_t sum, bool expected) {
 	bool actual = sum_decimal_split_equals(to_split, sum);
 	char message[100];
 	sprintf(message, "sum_decimal_split_equals_equals(%ld, %ld)", to_split, sum);
-	assert(expected, actual, message);
+	assert_bool(expected, actual, message);
 }
 
 int main() {
