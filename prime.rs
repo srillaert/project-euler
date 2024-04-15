@@ -2,14 +2,14 @@
 #[allow(dead_code)]
 pub fn get_is_prime_vector(exclusive_upper_bound: usize) -> Vec<bool> {
     let mut result = vec![true; exclusive_upper_bound];
-    initialize_is_prime_slice(&mut result);
+    prime_sieve_initialize(&mut result);
     result
 }
 
 // The slice needs to be pre-filled with true values
 // Runs the sieve of Eratosthenes where indices represent numbers and values indicate primality
 // Using a slice allows the sieve to be used with both compiled time allocated arrays and dynamically allocated vectors
-pub fn initialize_is_prime_slice(slice: &mut [bool]) {
+pub fn prime_sieve_initialize(slice: &mut [bool]) {
     slice[0] = false;
     slice[1] = false;
     let square_root = ((slice.len() - 1) as f64).sqrt() as usize;
@@ -20,4 +20,9 @@ pub fn initialize_is_prime_slice(slice: &mut [bool]) {
             }
         }
     }
+}
+
+#[allow(dead_code)]
+pub fn prime_sieve_is_prime(slice: & [bool], n: usize) -> bool {
+	slice[n]
 }
