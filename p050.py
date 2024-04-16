@@ -1,11 +1,5 @@
 from itertools import takewhile
-from prime import get_is_prime_array
-
-def get_primes_from_is_prime_array(is_prime_array):
-	yield 2
-	for n in range(3, len(is_prime_array), 2):
-		if is_prime_array[n]:
-			yield n
+from prime import get_is_prime_array, get_primes_from_is_prime_array
 
 def aggregate_consecutive_primes(primes, i):
 	sum = 0
