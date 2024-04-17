@@ -9,7 +9,7 @@ def aggregate_consecutive_primes(primes, i):
 		count += 1
 		yield count, sum
 
-# Find the biggest prime less than 1 million that is the sum of the most consecutive primes
+# Find the biggest prime less than till_sum that is the sum of the most consecutive primes
 def get_solution(till_sum):
 	is_prime_array = get_is_prime_array(till_sum)
 	primes = list(get_primes_from_is_prime_array(is_prime_array))
