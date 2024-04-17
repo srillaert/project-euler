@@ -23,6 +23,11 @@ pub fn prime_sieve_initialize(slice: &mut [bool]) {
 }
 
 #[allow(dead_code)]
-pub fn prime_sieve_is_prime(slice: & [bool], n: usize) -> bool {
-	slice[n]
+pub fn prime_sieve_get_primes<'a>(is_prime_array: &'a [bool]) -> impl Iterator<Item = usize> + 'a {
+    (2..is_prime_array.len()).filter(move |&n| prime_sieve_is_prime(&is_prime_array, n))
+}
+
+#[allow(dead_code)]
+pub fn prime_sieve_is_prime(is_prime_array: & [bool], n: usize) -> bool {
+	is_prime_array[n]
 }
