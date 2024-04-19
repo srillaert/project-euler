@@ -22,12 +22,14 @@ impl PrimeSieve {
         }
     }
 
+    #[allow(dead_code)]
     pub fn get_primes<'a>(&'a self) -> impl Iterator<Item = usize> + 'a {
         let odd_primes_iterator = self.is_prime_slice.iter().enumerate()
             .filter_map(|(index, is_prime)| if *is_prime { Some(index * 2 + 1) } else { None });
         iter::once(2).chain(odd_primes_iterator)
     }
 
+    #[allow(dead_code)]
     pub fn is_prime(&self, n: usize) -> bool {
         if n%2 == 0 {
             return n == 2;

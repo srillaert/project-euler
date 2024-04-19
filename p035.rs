@@ -1,8 +1,8 @@
-mod prime;
+mod prime_sieve;
 
-fn is_circular_prime(is_prime: &[bool], power_of_10: usize, n: usize) -> bool {
+fn is_circular_prime(sieve: &prime_sieve::PrimeSieve, power_of_10: usize, n: usize) -> bool {
     let mut rotation = n;
-    while is_prime[rotation] {
+    while sieve.is_prime(rotation) {
         rotation = (rotation % 10) * power_of_10 + rotation / 10;
         if rotation == n {
             return true;
@@ -12,12 +12,11 @@ fn is_circular_prime(is_prime: &[bool], power_of_10: usize, n: usize) -> bool {
 }
 
 fn main() {
-    let mut is_prime = [true; 1_000_000];
-    prime::prime_sieve_initialize(&mut is_prime);
+    let sieve = prime_sieve::PrimeSieve::new(1_000_000);
     let mut count = 4; // 4 circular primes below 10 : 2, 3, 5, 7
     for power_of_10 in (1..6).map(|x| 10usize.pow(x)) {
         for n in ((power_of_10 + 1)..(power_of_10 * 10)).step_by(2) {
-            if is_circular_prime(&is_prime, power_of_10, n) {
+            if is_circular_prime(&sieve, power_of_10, n) {
                 count += 1;
             }
         }
