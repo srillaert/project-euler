@@ -1,7 +1,8 @@
 from itertools import count
-from prime import is_prime
+from cached_trial_division import CachedTrialDivision
 
 def get_square_spirals():
+    cached_trial_division = CachedTrialDivision()
     primes_count = 0
     for n in count(1):
         side_length = 2 * n + 1
@@ -12,7 +13,7 @@ def get_square_spirals():
                 bottom_right_corner - 3 * current_add, 
                 bottom_right_corner, # The bottom right diagonal is the odd squares series so its terms will not be prime, exclude them from the test
                 current_add)
-                if is_prime(n))
+                if cached_trial_division.is_prime(n))
         primes_count += extra_primes_count
         numbers_count = 1 + 4 * n
         yield (primes_count, numbers_count, side_length)
