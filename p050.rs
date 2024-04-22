@@ -1,8 +1,8 @@
 mod prime_sieve;
 
-fn aggregate_consecutive_primes(primes: &[usize], i: usize) -> impl Iterator<Item = (usize, usize)> + '_ {
+fn aggregate_consecutive_primes<'a>(primes: &'a[usize], i: usize) -> impl Iterator<Item = (usize, usize)> + 'a {
     let mut sum = 0;
-    let mut count = 0;    
+    let mut count = 0;
     primes[i..].iter().map(move |&prime| {
         sum += prime;
         count += 1;

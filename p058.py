@@ -18,7 +18,7 @@ def get_square_spirals():
         numbers_count = 1 + 4 * n
         yield (primes_count, numbers_count, side_length)
 
-# what is the side length of the square spiral for which the ratio of primes along both diagonals first falls below 10%?
+# what is the side length of the Ulam spiral for which the ratio of primes along both diagonals first falls below 10%?
 def get_solution():
     return next(side_length for primes_count, numbers_count, side_length in get_square_spirals() 
                 if primes_count * 100 // numbers_count < 10)
