@@ -1,10 +1,9 @@
 from cached_trial_division import CachedTrialDivision
-from itertools import islice
 
 def test_get_primes():
     cache = CachedTrialDivision()
 
-    actual = list(islice(cache.get_primes(), 5))
+    actual = list(cache._CachedTrialDivision__get_primes(11))
 
     expected = [2, 3, 5, 7, 11]
     assert(actual == expected)
