@@ -4,10 +4,10 @@ from cached_trial_division import CachedTrialDivision
 def get_square_spirals():
     cached_trial_division = CachedTrialDivision()
     primes_count = 0
-    for n in count(1):
-        side_length = 2 * n + 1
+    for ulam_spiral_index in count(1):
+        side_length = 2 * ulam_spiral_index + 1
         bottom_right_corner = side_length * side_length
-        current_add = 2 * n
+        current_add = 2 * ulam_spiral_index
         extra_primes_count = sum(
             1 for n in range(
                 bottom_right_corner - 3 * current_add, 
@@ -15,7 +15,7 @@ def get_square_spirals():
                 current_add)
                 if cached_trial_division.is_prime(n))
         primes_count += extra_primes_count
-        numbers_count = 1 + 4 * n
+        numbers_count = 1 + 4 * ulam_spiral_index
         yield (primes_count, numbers_count, side_length)
 
 # what is the side length of the Ulam spiral for which the ratio of primes along both diagonals first falls below 10%?
