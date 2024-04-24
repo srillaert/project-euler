@@ -13,6 +13,7 @@ def get_factors(n):
 	if n != 1:
 		yield n
 
+# Obsolete : will be replaced by PrimeSieve in prime_sieve.py
 # Based on list_primality(n) of https://github.com/nayuki/Project-Euler-solutions/blob/master/python/eulerlib.py
 def get_is_prime_array(till):
 	# Sieve of Eratosthenes
@@ -24,6 +25,7 @@ def get_is_prime_array(till):
 				result[j] = False
 	return result
 
+# Obsolete : will be replaced by PrimeSieve in prime_sieve.py
 def get_primes_from_is_prime_array(is_prime_array):
 	yield 2
 	for n in range(3, len(is_prime_array), 2):
