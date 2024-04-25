@@ -1,4 +1,4 @@
-import prime
+from prime_sieve import PrimeSieve
 
 def get_truncations(n):
 	yield n
@@ -10,9 +10,9 @@ def get_truncations(n):
 
 def get_truncatable_primes():
 	till = 1000000
-	is_prime = prime.get_is_prime_array(till)
+	sieve = PrimeSieve(till)
 	for n in range(11, till, 2):
-		if all(is_prime[m] for m in get_truncations(n)):
+		if all(sieve.is_prime(m) for m in get_truncations(n)):
 			yield n
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
-from prime import get_is_prime_array
+from prime_sieve import PrimeSieve
 
-is_prime = get_is_prime_array(99999)
+sieve = PrimeSieve(100000)
 
 def check_pattern(pattern):
     step = int("".join(map(lambda c: "1" if c == "*" else "0", pattern)))
@@ -11,7 +11,7 @@ def check_pattern(pattern):
     count = 0
     for multiplier in range(0, stop_multiplier):
         generated_number = start + multiplier * step
-        if is_prime[generated_number]:
+        if sieve.is_prime(generated_number):
             if smallest == None:
                 smallest = generated_number
             count += 1

@@ -8,7 +8,7 @@ def get_outputs(problem):
     matching_files = glob.glob(problem + '*.*')
     for file_name in matching_files:
         path = Path(file_name)
-        if path.suffix == ".py":
+        if path.suffix == ".py" and not path.stem.endswith("_test"):
             start_time = time.time()
             result = subprocess.run(["python3", file_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             elapsed_time = time.time() - start_time
@@ -24,7 +24,7 @@ def get_outputs(problem):
             else:
                 print(f"Error building:")
                 print(result.stderr)
-        elif path.suffix == ".c":
+        elif path.suffix == ".c" and not path.stem.endswith("_test"):
             executable = path.stem + "c"
             result = subprocess.run(["/usr/bin/make", executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.returncode == 0:
