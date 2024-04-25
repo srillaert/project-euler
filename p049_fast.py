@@ -1,13 +1,13 @@
 # Based on the comment of Vlad on https://www.mathblog.dk/project-euler-49-arithmetic-sequences-primes-permutations/
 from itertools import combinations
-from prime import get_is_prime_array
+from prime_sieve import PrimeSieve
 
 till = 10000
-is_prime_array = get_is_prime_array(till)
+sieve = PrimeSieve(till)
 
 permutations = {}
 for d in range(1000, till):
-    if is_prime_array[d]:
+    if sieve.is_prime(d):
         key = ''.join(sorted(str(d))) # Permutations get the same key
         value = permutations.get(key)
         if value == None:
