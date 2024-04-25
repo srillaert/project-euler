@@ -13,11 +13,35 @@ def get_outputs(problem):
             result = subprocess.run(["python3", file_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             elapsed_time = time.time() - start_time
             yield (file_name, result.stdout.strip(), elapsed_time)
+        elif path.suffix == ".rs":
+            executable = path.stem + "r"
+            result = subprocess.run(["/usr/bin/make", executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if result.returncode == 0:
+                start_time = time.time()
+                result = subprocess.run(["./" + executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                elapsed_time = time.time() - start_time
+                yield (file_name, result.stdout.strip(), elapsed_time)
+            else:
+                print(f"Error building:")
+                print(result.stderr)
+        elif path.suffix == ".c":
+            executable = path.stem + "c"
+            result = subprocess.run(["/usr/bin/make", executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if result.returncode == 0:
+                start_time = time.time()
+                result = subprocess.run(["./" + executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                elapsed_time = time.time() - start_time
+                yield (file_name, result.stdout.strip(), elapsed_time)
+            else:
+                print(f"Error building:")
+                print(result.stderr)
+        else:
+            continue
 
 def print_table(problem):
-    print('program\t\toutput\telapsed_seconds')
+    print(f'{"program".ljust(15)} output\telapsed_seconds')
     for (file_name, output, elapsed_time) in get_outputs(problem):
-        print(f'{file_name}\t{output}\t{elapsed_time:.3f}')
+        print(f'{file_name.ljust(15)} {output}\t{elapsed_time:.3f}')
         yield (file_name, output, elapsed_time)
 
 if __name__ == "__main__":
