@@ -1,4 +1,4 @@
-from p049_fast import get_arithmetic_sequences
+from p049 import get_arithmetic_sequences
 
 def test_get_arithmetic_sequences():
     sequences = list(get_arithmetic_sequences())
