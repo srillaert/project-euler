@@ -1,18 +1,14 @@
-from itertools import count, groupby
+from cached_trial_division import CachedTrialDivision
 from functools import reduce
+from itertools import count, groupby
+from math import floor, sqrt
 from operator import mul
 
-def trial_divisors():
-	yield 2
-	yield 3
-	n = 5
-	while True: # Odd numbers not divisible by 3
-		yield n
-		yield n + 2
-		n += 6
+cache = CachedTrialDivision()
 
 def prime_factors(n):
-	for d in trial_divisors():
+	square_root = floor(sqrt(n))
+	for d in cache.get_primes(square_root):
 		if d*d > n:
 			break
 		while n%d == 0:
