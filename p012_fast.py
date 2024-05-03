@@ -1,3 +1,7 @@
+from itertools import count, groupby
+from functools import reduce
+from operator import mul
+
 def trial_divisors():
 	yield 2
 	yield 3
@@ -18,27 +22,20 @@ def prime_factors(n):
 		yield n
 
 def prime_factor_exponents(n):
-    current_factor = 0
-    count = 0
-    for p in prime_factors(n):
-        if p != current_factor and current_factor != 0:
-            yield count
-            count = 0
-        current_factor = p
-        count += 1
-    yield count
+	return (sum(1 for _ in group) for _, group in groupby(prime_factors(n)))
 
 def number_of_divisors(n):
-    product = 1
-    for e in prime_factor_exponents(n):
-        product *= (e + 1)
-    return product
+    return reduce(mul, (e + 1 for e in prime_factor_exponents(n)), 1)
 
-count = 0
-n = 0
-i = 0
-while count < 500:
-    i += 1
-    n += i
-    count = number_of_divisors(n)
-print(n)
+def get_triangle_numbers():
+    tn = 1
+    for step in count(2):
+          yield tn
+          tn += step
+
+def get_solution(minimum_number_of_divisors):
+    return next(tn for tn in get_triangle_numbers() if number_of_divisors(tn) >= minimum_number_of_divisors)
+
+if __name__ == "__main__":
+    solution = get_solution(500)
+    print(solution)
