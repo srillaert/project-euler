@@ -40,15 +40,35 @@ impl CachedTrialDivision {
         }
     }
 
+    fn conditionally_expand_cached_primes(&mut self, inclusive_till: usize) {
+        let last_prime = self.cached_primes[self.cached_primes.len() - 1];
+        if last_prime < inclusive_till {
+            self.expand_cached_primes(inclusive_till);
+        }
+    }
+
+    #[allow(dead_code)]
+    pub fn get_primes(&mut self, inclusive_till: usize) -> impl Iterator<Item= usize> {
+        self.conditionally_expand_cached_primes(inclusive_till);
+        self.cached_primes.clone().into_iter().take_while(move |&p| p <= inclusive_till)
+    }
+
     #[allow(dead_code)]
     pub fn is_prime(&mut self, n: usize) -> bool {
         let square_root_n = f64::sqrt(n as f64) as usize;
-        let last_prime = self.cached_primes[self.cached_primes.len() - 1];
-        if last_prime < square_root_n {
-            self.expand_cached_primes(square_root_n);
-        }
+        self.conditionally_expand_cached_primes(square_root_n);
         return self.is_prime_limited(n, square_root_n);
     }
+}
+
+#[test]
+fn test_get_primes() {
+    let mut cache = CachedTrialDivision::new();
+
+    let actual: Vec<_> = cache.get_primes(11).collect();
+
+    let expected: Vec<_> = vec![2, 3, 5, 7, 11];
+    assert_eq!(actual, expected)
 }
 
 #[test]
