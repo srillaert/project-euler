@@ -48,9 +48,10 @@ impl CachedTrialDivision {
     }
 
     #[allow(dead_code)]
-    pub fn get_primes(&mut self, inclusive_till: usize) -> impl Iterator<Item= usize> {
+    pub fn get_primes<'a>(&'a mut self, inclusive_till: usize) -> impl Iterator<Item= usize> + 'a {
         self.conditionally_expand_cached_primes(inclusive_till);
-        self.cached_primes.clone().into_iter().take_while(move |&p| p <= inclusive_till)
+        self.cached_primes.iter()
+            .filter_map(move |p| if *p <= inclusive_till { Some(*p) } else { None })
     }
 
     #[allow(dead_code)]
