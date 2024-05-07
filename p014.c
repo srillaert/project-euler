@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 #define LENGTH_TYPE uint32_t // Can be an uint16_t in practice because the maximum length we find is 525 but how can we know this a priori ?
-#define NUMBER_TYPE uint32_t // TILL is 1 million
+#define NUMBER_TYPE uint64_t // Error 'attempt to multiply with overflow' with u32 in Rust solution
 #define OUTPUT_NOT_YET_KNOWN 0 // We use 0 to indicate that we don't have the output of this function input yet
 #define TILL 1000000
 
