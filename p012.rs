@@ -1,7 +1,7 @@
 mod cached_trial_division;
+use cached_trial_division::CachedTrialDivision;
 
-fn prime_factors(mut n: usize) -> Vec<usize> {
-    let mut cache = cached_trial_division::CachedTrialDivision::new();
+fn prime_factors(cache: &mut CachedTrialDivision, mut n: usize) -> Vec<usize> {    
     let square_root = (f64::sqrt(n as f64)) as usize;
     let mut result: Vec<usize> = Vec::new();
     for p in cache.get_primes(square_root) {
@@ -21,16 +21,17 @@ fn prime_factors(mut n: usize) -> Vec<usize> {
 
 #[test]
 fn test_prime_factors() {
-    let actual: Vec<_> = prime_factors(12);
+    let mut cache = CachedTrialDivision::new();
+    let actual: Vec<_> = prime_factors(&mut cache, 12);
     let expected = vec![2, 2, 3];
     assert_eq!(actual, expected);
 }
 
-fn prime_factor_exponents(n: usize) -> Vec<usize> {
+fn prime_factor_exponents(cache: &mut CachedTrialDivision, n: usize) -> Vec<usize> {
     let mut result: Vec<usize> = Vec::new();
     let mut exponent = 0;
     let mut previous_f = 0;
-    for f in prime_factors(n) {
+    for f in prime_factors(cache, n) {
         if f == previous_f {
             exponent += 1;
         } else {
@@ -47,18 +48,20 @@ fn prime_factor_exponents(n: usize) -> Vec<usize> {
 
 #[test]
 fn test_prime_factor_exponents() {
-    let actual: Vec<_> = prime_factor_exponents(12);
+    let mut cache = CachedTrialDivision::new();
+    let actual: Vec<_> = prime_factor_exponents(&mut cache, 12);
     let expected = vec![2, 1]; // 2^2 * 3^1 == 12
     assert_eq!(actual, expected);
 }
 
-fn number_of_divisors(n: usize) -> usize {
-    prime_factor_exponents(n).into_iter().map(|e| e + 1).fold(1, |a, b| a * b)
+fn number_of_divisors(cache: &mut CachedTrialDivision, n: usize) -> usize {
+    prime_factor_exponents(cache, n).into_iter().map(|e| e + 1).fold(1, |a, b| a * b)
 }
 
 #[test]
 fn test_number_of_divisors() {
-    let actual = number_of_divisors(12);
+    let mut cache = CachedTrialDivision::new();
+    let actual = number_of_divisors(&mut cache, 12);
     assert_eq!(actual, 6);
 }
 
@@ -90,8 +93,9 @@ fn test_triangle_numbers() {
 }
 
 fn get_solution(minimum_number_of_divisors: usize) -> usize {
+    let mut cache = CachedTrialDivision::new();
     triangle_numbers()
-        .find(|&tn| number_of_divisors(tn) >= minimum_number_of_divisors)
+        .find(|&tn| number_of_divisors(&mut cache, tn) >= minimum_number_of_divisors)
         .unwrap()
 }
 
