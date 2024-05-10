@@ -8,3 +8,7 @@ edition = "2018"
 [[bin]]
 name = "p018r"
 path = "p018.rs"
+
+[[bin]]
+name = "p067r"
+path = "p067.rs"
