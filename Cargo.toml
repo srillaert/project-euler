@@ -6,9 +6,17 @@ edition = "2018"
 [dependencies]
 
 [[bin]]
-name = "p018r"
-path = "p018.rs"
+name = "p018_fastr"
+path = "p018_fast.rs"
 
 [[bin]]
-name = "p067r"
-path = "p067.rs"
+name = "p018_simpler"
+path = "p018_simple.rs"
+
+[[bin]]
+name = "p067_fastr"
+path = "p067_fast.rs"
+
+[[bin]]
+name = "p067_simpler"
+path = "p067_simple.rs"
