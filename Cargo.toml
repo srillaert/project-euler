@@ -14,6 +14,10 @@ name = "p018_simpler"
 path = "p018_simple.rs"
 
 [[bin]]
+name = "p022r"
+path = "p022.rs"
+
+[[bin]]
 name = "p067_fastr"
 path = "p067_fast.rs"
 
