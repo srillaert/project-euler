@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
+itertools = "0.13.0"
 
 [[bin]]
 name = "p018_fastr"
@@ -24,3 +25,7 @@ path = "p067_fast.rs"
 [[bin]]
 name = "p067_simpler"
 path = "p067_simple.rs"
+
+[[bin]]
+name = "p096r"
+path = "p096.rs"
