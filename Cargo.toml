@@ -29,3 +29,7 @@ path = "p067_simple.rs"
 [[bin]]
 name = "p096r"
 path = "p096.rs"
+
+[[bin]]
+name = "p808r"
+path = "p808.rs"
