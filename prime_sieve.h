@@ -1,5 +1,5 @@
-#ifndef PRIME_H
-#define PRIME_H
+#ifndef PRIME_SIEVE_H
+#define PRIME_SIEVE_H
 
 #include <stdbool.h>
 #include <stdint.h>

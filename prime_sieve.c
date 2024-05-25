@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "prime.h"
+#include "prime_sieve.h"
 
 void prime_sieve_initialize(uint8_t* sieve, uint_fast32_t size_sieve, uint_fast32_t exclusive_till) {
 	for(uint_fast32_t i = 0; i < size_sieve; i++)

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
-#include "prime.h"
+#include "prime_sieve.h"
 
 #define MAX 2000000
 #define SIZE_SIEVE_ARRAY ((MAX - 1) / 8) + 1
