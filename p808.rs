@@ -20,7 +20,7 @@ fn is_reversable_prime_square(sieve: &prime_sieve::PrimeSieve, n: usize) -> bool
 
 #[test]
 fn test_is_reversable_prime_square() {
-    let mut sieve = prime_sieve::PrimeSieve::new(25);
+    let mut sieve = prime_sieve::PrimeSieve::new(1000);
 
     assert_eq!(is_reversable_prime_square(&mut sieve, 25), false);
     assert_eq!(is_reversable_prime_square(&mut sieve, 49), false, "reverse 94 is not the square of a prime");
