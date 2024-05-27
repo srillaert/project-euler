@@ -10,6 +10,15 @@ def run_solver(run_args):
     elapsed_time = time.time() - start_time
     return (result.stdout.strip(), elapsed_time)
 
+def run_cargo_and_solver(executable):
+    result = subprocess.run(["/usr/bin/cargo", "build", "-r", "--bin", executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    if result.returncode == 0:
+        return run_solver(["./target/release/" + executable])
+    else:
+        print(f"Error building:")
+        print(result.stderr)
+        return
+
 def run_make_and_solver(executable):
     result = subprocess.run(["/usr/bin/make", executable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0:
@@ -24,7 +33,7 @@ def get_output(file_name):
     if path.suffix == ".py" and not path.stem.endswith("_test"):
         return run_solver(["python3", file_name])
     elif path.suffix == ".rs":
-        return run_make_and_solver(path.stem + "r")
+        return run_cargo_and_solver(path.stem + "r")
     elif path.suffix == ".c" and not path.stem.endswith("_lib") and not path.stem.endswith("_test"):
         return run_make_and_solver(path.stem + "c")
     else:

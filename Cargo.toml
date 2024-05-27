@@ -8,6 +8,14 @@ bitvec = "1"
 itertools = "0.13.0"
 
 [[bin]]
+name = "p007r"
+path = "p007.rs"
+
+[[bin]]
+name = "p010r"
+path = "p010.rs"
+
+[[bin]]
 name = "p018_fastr"
 path = "p018_fast.rs"
 
@@ -18,6 +26,22 @@ path = "p018_simple.rs"
 [[bin]]
 name = "p022r"
 path = "p022.rs"
+
+[[bin]]
+name = "p035r"
+path = "p035.rs"
+
+[[bin]]
+name = "p037r"
+path = "p037.rs"
+
+[[bin]]
+name = "p049r"
+path = "p049.rs"
+
+[[bin]]
+name = "p050r"
+path = "p050.rs"
 
 [[bin]]
 name = "p067_fastr"
