@@ -1,15 +1,15 @@
 fn get_outcome_counts(sides_count: u32, dices_count: u32) -> Vec<u32> {
-	let highest_total = sides_count * dices_count;
-	let mut result = vec![0u32; (highest_total as usize) + 1];
+	let highest_sum = sides_count * dices_count;
+	let mut result = vec![0u32; (highest_sum as usize) + 1];
 
 	for mut n in 0..(sides_count.pow(dices_count)) {
-		let mut total = 0;
+		let mut sum = 0;
 		for _ in 0..dices_count {
 			let face_digit = (n % sides_count) + 1;
-			total += face_digit;
+			sum += face_digit;
 			n = n / sides_count;
 		}
-		result[total as usize] += 1;
+		result[sum as usize] += 1;
 	}
 	result
 }
@@ -54,41 +54,44 @@ fn test_get_outcome_counts_nine_four_sided_dice() {
 	assert_eq!(1, actual[36]);
 }
 
-fn get_outcome_chances(sides_count: u32, dices_count: u32) -> Vec<f64> {
-	let counts = get_outcome_counts(sides_count, dices_count);
-	let sum: u32 = counts.iter().sum();
-	let chances = counts.iter().map(|&c| (c as f64) / sum as f64).collect();
-	chances
+fn get_outcome_chances(sides_count: u32, dices_count: u32) -> impl Iterator<Item = f64> {
+    let counts = get_outcome_counts(sides_count, dices_count);
+    let sum: u32 = counts.iter().sum();
+    counts.into_iter().map(move |c| (c as f64) / sum as f64)
 }
 
 #[test]
 fn test_get_outcome_chances_one_four_sided_dice() {
-	let actual = get_outcome_chances(4, 1);
+	let actual: Vec<_> = get_outcome_chances(4, 1).collect();
 
 	let expected = vec![0.0, 0.25, 0.25, 0.25, 0.25];
 
 	assert_eq!(actual, expected);
 }
 
-fn get_solution(pyramidal_dices_count: u32, cubic_dices_count: u32) -> f64 {
-	let pyramidal_chances = get_outcome_chances(4, pyramidal_dices_count);
+fn get_win_chance_pyramidal(pyramidal_dices_count: u32, cubic_dices_count: u32) -> f64 {
+	let pyramidal_chances: Vec<_> = get_outcome_chances(4, pyramidal_dices_count).collect();
 	let cubic_chances = get_outcome_chances(6, cubic_dices_count);
-	let mut win_chance = 0.0;
-	for total in (pyramidal_dices_count as usize)..(pyramidal_chances.len()) {
-		let win_chance_for_total: f64 = (0..total).map(|i| cubic_chances[i]).sum();
-		let pyramidal_chance_for_total = pyramidal_chances[total];
-		win_chance += pyramidal_chance_for_total * win_chance_for_total;
-	}
+	let cubic_cumulative_distribution_function: Vec<_> = 
+		cubic_chances
+			.scan(0.0, |state, x| {
+				*state += x;
+				Some(*state)
+			}).collect();
+	let win_chance = 
+		((pyramidal_dices_count as usize)..(pyramidal_chances.len()))
+		.map(|throw_outcome| cubic_cumulative_distribution_function[throw_outcome - 1] * pyramidal_chances[throw_outcome])
+		.sum();
 	win_chance
 }
 
 #[test]
-fn test_get_solution() {
-	let solution = get_solution(1, 1);
+fn test_get_win_chance_pyramidal() {
+	let solution = get_win_chance_pyramidal(1, 1);
 	assert_eq!(solution, 0.25);
 }
 
 fn main() {
-	let solution = get_solution(9, 6);
+	let solution = get_win_chance_pyramidal(9, 6);
 	println!("{:.7}", solution);
 }
