@@ -56,6 +56,10 @@ name = "p096r"
 path = "p096.rs"
 
 [[bin]]
+name = "p145r"
+path = "p145.rs"
+
+[[bin]]
 name = "p205_simpler"
 path = "p205_simple.rs"
 
