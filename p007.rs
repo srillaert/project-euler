@@ -5,7 +5,7 @@ fn main() {
     // for n = 105000 : (n / log(n)) * (1 + 1.2762/log(n)) == 10084.14889762712, more than 10001 so this is a good upper bound
     const EXCLUSIVE_UPPER_BOUND: usize = 105000;
     let sieve = prime_sieve::PrimeSieve::new(EXCLUSIVE_UPPER_BOUND);
-    let element = sieve.get_primes().nth(10000); // Index is 0-based, so nth(10000) gives the 10001st prime
+    let element = sieve.get_nth_prime(10000); // Index is 0-based, so nth(10000) gives the 10001st prime
 
     match element {
         Some(value) => {

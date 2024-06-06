@@ -17,6 +17,27 @@ impl BitVector {
         }
     }
 
+	pub fn get_nth_true_index(&self, nth: usize) -> Option<usize> {
+		let mut count_ones_sum = 0usize;
+		let mut index = 0;
+		for i in 0..self.vector.len() {
+			count_ones_sum += self.vector[i].count_ones() as usize;
+			if count_ones_sum >= nth {
+				index = i;
+				break;
+			}
+		};
+		for i in (0..usize::BITS).rev() {
+			if ((self.vector[index] >> i) & 1) == 1 {
+				if count_ones_sum == nth {
+					return Some(index * usize::BITS as usize + i as usize);
+				}
+				count_ones_sum -= 1;
+			}
+		}
+		return None;
+	}
+
     pub fn get_true_indices<'a>(&'a self) -> impl Iterator<Item = usize> + 'a {
 		let iterator = (0..self.exclusive_upper_bound)
 			.filter_map(move |i| if self.get_value(i) { Some(i) } else { None });
@@ -102,6 +123,19 @@ impl PrimeSieve {
         }
     }
 
+	#[allow(dead_code)]
+	pub fn get_nth_prime(&self, nth: usize) -> Option<usize> {
+		if nth == 0 {
+			return Some(2);
+		}
+		let element = self.is_prime_vector.get_nth_true_index(nth); // Index is 0-based, so nth(10000) gives the 10001st prime
+		match element {
+			Some(value) => Some(value * 2 + 1),
+			None => None
+		}
+		//self.get_primes().nth(nth)
+	}
+
     #[allow(dead_code)]
     pub fn get_primes<'a>(&'a self) -> impl Iterator<Item = usize> + 'a {
 		let odd_primes_iterator = self.is_prime_vector.get_true_indices().map(|index| index * 2 + 1);
@@ -126,6 +160,15 @@ fn test_prime_sieve_new() {
 	assert!(sieve.is_prime_vector.get_value(2), "5 is prime");
 	assert!(sieve.is_prime_vector.get_value(3), "7 is prime");
 	assert!(!sieve.is_prime_vector.get_value(4), "9 is not prime");
+}
+
+#[test]
+fn test_get_nth_prime() {
+	let sieve = PrimeSieve::new(1000);
+
+	assert_eq!(sieve.get_nth_prime(0), Some(2));
+	assert_eq!(sieve.get_nth_prime(1), Some(3));
+	assert_eq!(sieve.get_nth_prime(166), Some(991));
 }
 
 #[test]
