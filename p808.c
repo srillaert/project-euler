@@ -4,9 +4,9 @@
 #include "prime_sieve.h"
 
 #define MAX 100000000
-#define SIZE_SIEVE_ARRAY ((MAX - 1) / 8) + 1
+#define SIZE_SIEVE_ARRAY ((MAX - 1) / SIEVE_WORD_BIT_LEN) + 1
 
-uint8_t sieve[SIZE_SIEVE_ARRAY];
+SIEVE_WORD_TYPE sieve[SIZE_SIEVE_ARRAY];
 
 uint_fast32_t reverse(uint_fast64_t n) {
 	uint_fast64_t result = 0;

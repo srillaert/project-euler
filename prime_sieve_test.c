@@ -3,9 +3,9 @@
 #include "prime_sieve.h"
 
 #define SIZE_SIEVE_ARRAY 2
-#define MAX (SIZE_SIEVE_ARRAY * 8) - 1
+#define MAX (SIZE_SIEVE_ARRAY * SIEVE_WORD_BIT_LEN) - 1
 
-uint8_t sieve[SIZE_SIEVE_ARRAY];
+SIEVE_WORD_TYPE sieve[SIZE_SIEVE_ARRAY];
 
 int passed = 0;
 int failed = 0;
