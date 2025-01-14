@@ -1,6 +1,7 @@
 from prime_sieve import PrimeSieve
 from math import log, log2
 
+# Calculates the number of hybrid integers less than or equal to base^exponent.
 def get_number_hybrid_integers(base, exponent):
 	log_till = exponent * log(base)
 	sieve_till = int(exponent * log2(base))
@@ -18,7 +19,7 @@ def get_number_hybrid_integers(base, exponent):
 			mid = (low + high) // 2
 			q = primes[mid]
 			log_hybrid_integer = q * log_p + p * log(q)
-			if log_hybrid_integer > log_till + 1e-9:
+			if log_hybrid_integer > log_till:
 				high = mid
 			else:
 				low = mid + 1

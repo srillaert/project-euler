@@ -1,31 +1,31 @@
 mod prime_sieve;
 
+/// Calculates the number of hybrid integers less than or equal to base^exponent.
 fn get_number_hybrid_integers(base: usize, exponent: usize) -> usize {
 	let ln_till = (exponent as f64) * (base as f64).ln();
 	let sieve_till = ((exponent as f64) * (base as f64).log2()) as usize;
 	let sieve = prime_sieve::PrimeSieve::new(sieve_till);
 	let primes = sieve.get_primes().collect::<Vec<_>>();
 	let mut count = 0usize;
-	for (i, p) in primes.iter().enumerate() {
-		let ln_p = (*p as f64).ln();
-		if 2f64 * (*p as f64) * ln_p >= ln_till {
+	for (p_i, p) in primes.iter().enumerate() {
+		let p_as_f64 = *p as f64;
+		let ln_p = p_as_f64.ln();
+		if 2f64 * p_as_f64 * ln_p >= ln_till {
 			break;
 		}
-		// Use binary search to find the first prime q where p**q * q**p > base**exponent
-		// Can probably be replaced by Rust slice binary_search_by
-		let mut low = i + 1;
-		let mut high = primes.len();
-		while low < high {
-			let mid = (low + high) / 2;
-			let q = primes[mid] as f64;
-			let ln_hybrid_integer = q * ln_p + (*p as f64) * q.ln();
-			if ln_hybrid_integer > ln_till + 1e-9 {
-				high = mid;
-			} else {
-				low = mid + 1;
-			}
-		}
-		count += low - (i + 1);
+		// Use binary search to the number of q's greater than p where p^q * q^p <= base^exponent
+		let count_for_p = primes[p_i + 1..]
+			.binary_search_by(|&q| {
+				let q_as_f64 = q as f64;
+				let ln_hybrid_integer = q_as_f64 * ln_p + p_as_f64 * q_as_f64.ln();
+				if ln_hybrid_integer > ln_till {
+					std::cmp::Ordering::Greater
+				} else {
+					std::cmp::Ordering::Less
+				}
+			})
+		.unwrap_or_else(|x| x);
+		count += count_for_p;
 	}
 	return count;
 }
