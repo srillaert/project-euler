@@ -67,6 +67,10 @@ name = "p205_fastr"
 path = "p205_fast.rs"
 
 [[bin]]
+name = "p500r"
+path = "p500.rs"
+
+[[bin]]
 name = "p800r"
 path = "p800.rs"
 
