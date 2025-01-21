@@ -1,14 +1,15 @@
 mod prime_sieve;
+use integer_sqrt::IntegerSquareRoot;
 use itertools::Itertools;
 
-fn get_factors<'a>(sieve_till: usize, number_factors: usize) -> impl Iterator<Item = usize> + 'a {
+fn get_factors_doubling_divisors(sieve_till: usize, number_factors: usize) -> impl Iterator<Item = usize> {
 	let sieve = prime_sieve::PrimeSieve::new(sieve_till);
 	let primes= sieve.get_primes().take(number_factors).collect::<Vec<_>>();
 	let largest_prime = primes[primes.len() - 1];
-	let squareroot_largest_prime = (largest_prime as f64).sqrt() as usize;
-	let mut squared_primes = primes
+	let sqrt_largest_prime = largest_prime.integer_sqrt();
+	let squared_primes = primes
 		.iter()
-		.take_while(|&p| *p <= squareroot_largest_prime)
+		.take_while(|&p| *p <= sqrt_largest_prime)
 		.flat_map(|p| {
 			let mut square: usize = *p;
 			std::iter::from_fn(move || {
@@ -20,19 +21,18 @@ fn get_factors<'a>(sieve_till: usize, number_factors: usize) -> impl Iterator<It
 				}
 			})
 		})
-		.collect::<Vec<_>>();
-	squared_primes.sort();
+		.sorted();
 	let factors = primes.into_iter().merge(squared_primes).take(number_factors);
-	return factors;
+	factors
 }
 
 #[test]
-fn test_get_factors() {
-	assert_eq!(get_factors(100, 7).collect::<Vec<_>>(), [2, 3, 4, 5, 7, 9, 11]);
+fn test_get_factors_doubling_divisors() {
+	assert_eq!(get_factors_doubling_divisors(100, 7).collect::<Vec<_>>(), [2, 3, 4, 5, 7, 9, 11]);
 }
 
 fn get_smallest_number_with_power_of_2_divisors(sieve_till: usize, number_factors: usize) -> usize {
-	let result = get_factors(sieve_till, number_factors).reduce(|acc, num| (acc * num) % 500_500_507).unwrap();
+	let result = get_factors_doubling_divisors(sieve_till, number_factors).reduce(|acc, num| (acc * num) % 500_500_507).unwrap();
 	result
 }
 
