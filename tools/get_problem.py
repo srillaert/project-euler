@@ -1,3 +1,4 @@
+import argparse
 from bs4 import BeautifulSoup
 import requests
 
@@ -24,7 +25,12 @@ def parse_html(input_html):
 	return result
 
 if __name__ == "__main__":
-	response = requests.get("https://projecteuler.net/problem=800")
+	parser = argparse.ArgumentParser(description='Fetch a Project Euler problem description by number and convert it to markdown.')
+	parser.add_argument('problem_number', type=int, help='the number of the problem to fetch')
+	args = parser.parse_args()
+
+	url = f"https://projecteuler.net/problem={args.problem_number}"
+	response = requests.get(url)
 	response.raise_for_status()
 	markdown_text = parse_html(response.text)
 	print(markdown_text)
