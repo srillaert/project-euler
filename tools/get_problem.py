@@ -11,16 +11,16 @@ def parse_html(input_html):
 
 	h3_element = soup.find('h3')
 	problem_number = h3_element.get_text()
-	sb.append("### " + problem_number + "\n")
+	sb.append("### " + problem_number)
 
 	container = soup.find('div', class_='problem_content')
 	for child in container.children:
 		if child.name == 'p':  # If it's a <p> tag, get its text
-			sb.append(child.get_text())
+			sb.append("\n" + child.get_text().strip())
 		elif isinstance(child, str):  # If it's a string, check for LaTeX equations
 			child_text = child.get_text(strip=True)
 			if child_text.startswith("$$"):
-				sb.append("```math\n" + child_text[2:-2].strip() + "\n```\n")
+				sb.append("```math\n" + child_text[2:-2].strip() + "\n```")
 	result = "\n".join(sb) + "\n"
 	return result
 
