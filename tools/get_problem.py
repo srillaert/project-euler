@@ -32,13 +32,26 @@ def parse_html(input_html):
 	result = "".join(sb)
 	return result
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description='Fetch a Project Euler problem description by number and convert it to markdown.')
-	parser.add_argument('problem_number', type=int, help='the number of the problem to fetch')
-	args = parser.parse_args()
-
-	url = f"https://projecteuler.net/problem={args.problem_number}"
+def get_input_from_http(problem_number):
+	url = f"https://projecteuler.net/problem={problem_number}"
 	response = requests.get(url)
 	response.raise_for_status()
-	markdown_text = parse_html(response.text)
+	return response.text
+
+def get_input_from_file(filepath):
+	with open(filepath, 'r') as file:
+		return file.read()
+
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser(description='Fetch a Project Euler problem description and convert it to markdown.')
+	group = parser.add_mutually_exclusive_group(required=True)
+	group.add_argument('--http', type=int, help='Number of the problem to fetch from projecteuler.net')
+	group.add_argument('--file', type=str, help='File containing the HTML description')
+	args = parser.parse_args()
+
+	if args.http:
+		html = get_input_from_http(args.http)
+	elif args.file:
+		html = get_input_from_file(args.file)
+	markdown_text = parse_html(html)
 	print(markdown_text)
