@@ -33,3 +33,16 @@ $n$ is periodic. The period depends on the value of $n$.
 	actual = parse_paragraph(soup)
 	expected = r"For every positive integer $n$ the Fibonacci sequence modulo $n$ is periodic. The period depends on the value of $n$."
 	assert actual == expected
+
+def test_parse_paragraph_break():
+	input_html = r"""<p>
+An integer of the form $p^q q^p$ with prime numbers $p \neq q$ is called a <dfn>hybrid-integer</dfn>.<br>
+For example, $800 = 2^5 5^2$ is a hybrid-integer.
+</p>"""
+	soup = BeautifulSoup(input_html, 'html.parser')
+	paragraph = soup.find('p')
+	actual = parse_paragraph(paragraph)
+	print(actual)
+	expected = r"""An integer of the form $p^q q^p$ with prime numbers $p \neq q$ is called a _hybrid-integer_.
+For example, $800 = 2^5 5^2$ is a hybrid-integer."""
+	assert actual == expected

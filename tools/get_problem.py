@@ -4,10 +4,13 @@ import re
 import requests
 
 def parse_paragraph(soup):
-	# Replace <strong> tags with markdown bold **text**
+	for break_tag in soup.find_all('br'):
+		break_tag.replace_with("br_placeholder")
+	for dfn_tag in soup.find_all('dfn'):
+		dfn_tag.replace_with(f"_{dfn_tag.text}_")
 	for strong_tag in soup.find_all('strong'):
 		strong_tag.replace_with(f"**{strong_tag.text}**")
-	result = soup.get_text().replace("\n", "").strip()
+	result = soup.get_text().replace("\n", "").replace("br_placeholder", "\n").strip()
 	return result
 
 def parse_html(input_html):
