@@ -4,14 +4,17 @@ import re
 import requests
 
 def parse_paragraph(soup):
-	for break_tag in soup.find_all('br'):
-		break_tag.replace_with("br_placeholder")
-	for dfn_tag in soup.find_all('dfn'):
-		dfn_tag.replace_with(f"_{dfn_tag.text}_")
-	for strong_tag in soup.find_all('strong'):
-		strong_tag.replace_with(f"**{strong_tag.text}**")
-	result = soup.get_text().replace("\n", "").replace("br_placeholder", "\n").strip()
-	return result
+	sb = []
+	for child in soup.children:
+		if child.name == "br":
+			sb.append("\n")
+		elif child.name == "dfn":
+			sb.append(f"_{child.text}_")
+		elif child.name == "strong":
+			sb.append(f"**{child.text}**")
+		else:
+			sb.append(child.text.replace("\n", ""))
+	return "".join(sb)
 
 def parse_html(input_html):
 	soup = BeautifulSoup(input_html, 'html.parser')
