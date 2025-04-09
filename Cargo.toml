@@ -8,6 +8,10 @@ integer-sqrt = "0.1.5"
 itertools = "0.13.0"
 
 [[bin]]
+name = "p002r"
+path = "p002.rs"
+
+[[bin]]
 name = "p007r"
 path = "p007.rs"
 
