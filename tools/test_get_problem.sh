@@ -1,3 +1,5 @@
+echo p002
+python3 get_problem.py --file p002.html | diff - ../p002.md
 echo p108
 python3 get_problem.py --file p108.html | diff - ../p108.md
 echo p800

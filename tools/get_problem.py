@@ -13,7 +13,14 @@ def parse_paragraph(soup):
 		elif child.name == "strong":
 			sb.append(f"**{child.text}**")
 		else:
-			sb.append(child.text.replace("\n", ""))
+			text = child.text.replace("\n", "")
+			text = re.sub(
+				r"\$\$(.*?)\$\$", 
+				r"\n```math\n\1\n```", 
+				text, 
+				flags=re.DOTALL
+			)
+			sb.append(text)
 	return "".join(sb)
 
 def parse_html(input_html):
