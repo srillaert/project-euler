@@ -1,1 +1,10 @@
-wget -O p002.html  https://projecteuler.net/problem=002
+#!/bin/bash
+problem_number="$1"
+
+if [ -z "$problem_number" ]; then
+	echo "Error: Please provide a three digit problem number as an argument."
+	echo "Example: $0 001"
+	exit 1
+fi
+
+wget -O p${problem_number}.html  https://projecteuler.net/problem=${problem_number}
