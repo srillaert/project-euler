@@ -12,8 +12,28 @@ name = "p002r"
 path = "p002.rs"
 
 [[bin]]
+name = "p003r"
+path = "p003.rs"
+
+[[bin]]
+name = "p004r"
+path = "p004.rs"
+
+[[bin]]
+name = "p005r"
+path = "p005.rs"
+
+[[bin]]
+name = "p006r"
+path = "p006.rs"
+
+[[bin]]
 name = "p007r"
 path = "p007.rs"
+
+[[bin]]
+name = "p008r"
+path = "p008.rs"
 
 [[bin]]
 name = "p010r"
