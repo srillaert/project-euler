@@ -8,4 +8,4 @@ if [ -z "$problem_number" ]; then
 	exit 1
 fi
 
-wget -O p${problem_number}.html  https://projecteuler.net/problem=${problem_number}
+wget -O get_problem_integration_tests/p${problem_number}.html  https://projecteuler.net/problem=${problem_number}
