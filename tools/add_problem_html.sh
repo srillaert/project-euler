@@ -1,6 +1,7 @@
 #!/bin/bash
-problem_number="$1"
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
+problem_number="$1"
 if [ -z "$problem_number" ]; then
 	echo "Error: Please provide a three digit problem number as an argument."
 	echo "Example: $0 001"
