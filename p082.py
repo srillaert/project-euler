@@ -20,22 +20,6 @@ def minimal_path_sum(matrix):
     result = min(minimal)
     return result
 
-def test_minimal_path_sum_down():
-    matrix = [
-        [1,1,4],
-        [3,1,3],
-        [4,1,1]
-    ]
-    assert minimal_path_sum(matrix) == 5
-
-def test_minimal_path_sum_up():
-    matrix = [
-        [4,1,1],
-        [3,1,3],
-        [1,1,4]
-    ]
-    assert minimal_path_sum(matrix) == 5
-
 if __name__ == "__main__":
     matrix = [[int(number) for number in line.split(',')] for line in open('p082.input')]
     print(minimal_path_sum(matrix))

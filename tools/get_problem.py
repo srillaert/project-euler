@@ -24,6 +24,15 @@ def parse_paragraph(soup):
 			sb.append(text)
 	return "".join(sb)
 
+def parse_problem_content(container, sb):
+	for child in container.children:
+		if child.name == 'p':  # If it's a <p> tag, get its text
+			sb.append("\n" + parse_paragraph(child) + "\n")
+		else:  # Check for LaTeX equations
+			child_text = child.get_text(strip=True)
+			if child_text.startswith("$$"):
+				sb.append("```math\n" + child_text[2:-2].strip() + "\n```\n")
+
 def parse_html(input_html):
 	soup = BeautifulSoup(input_html, 'html.parser')
 	
@@ -36,13 +45,8 @@ def parse_html(input_html):
 	sb.append("### " + problem_number + "\n")
 
 	container = soup.find('div', class_='problem_content')
-	for child in container.children:
-		if child.name == 'p':  # If it's a <p> tag, get its text
-			sb.append("\n" + parse_paragraph(child) + "\n")
-		elif isinstance(child, str):  # If it's a string, check for LaTeX equations
-			child_text = child.get_text(strip=True)
-			if child_text.startswith("$$"):
-				sb.append("```math\n" + child_text[2:-2].strip() + "\n```\n")
+	parse_problem_content(container, sb)
+
 	result = "".join(sb)
 	return result
 
