@@ -40,6 +40,10 @@ name = "p010r"
 path = "p010.rs"
 
 [[bin]]
+name = "p011r"
+path = "p011.rs"
+
+[[bin]]
 name = "p018_fastr"
 path = "p018_fast.rs"
 
@@ -74,6 +78,10 @@ path = "p067_fast.rs"
 [[bin]]
 name = "p067_simpler"
 path = "p067_simple.rs"
+
+[[bin]]
+name = "p081r"
+path = "p081.rs"
 
 [[bin]]
 name = "p096r"
