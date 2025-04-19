@@ -1,7 +1,7 @@
 def add_vectors(vector_a, vector_b):
     return [a + b for a, b in zip(vector_a, vector_b)]
 
-def minimal_path_sum(rows):
+def get_minimal_path_sum(rows):
     columns = list(map(list, zip(*rows))) # transpose rows to columns
     n = len(columns)
     minimal = columns[0]
@@ -15,7 +15,11 @@ def minimal_path_sum(rows):
     result = min(minimal)
     return result
 
-if __name__ == "__main__":
-    with open('p082.input') as f:
+def get_minimal_path_sum_from_file(filename):
+    with open(filename) as f:
         rows = [list(map(int, line.strip().split(','))) for line in f]
-    print(minimal_path_sum(rows))
+    return get_minimal_path_sum(rows)
+
+if __name__ == "__main__":
+    solution = get_minimal_path_sum_from_file('p082.input')
+    print(solution)
