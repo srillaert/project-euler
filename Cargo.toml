@@ -84,6 +84,10 @@ name = "p081r"
 path = "p081.rs"
 
 [[bin]]
+name = "p082r"
+path = "p082.rs"
+
+[[bin]]
 name = "p096r"
 path = "p096.rs"
 
