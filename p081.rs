@@ -4,15 +4,15 @@ use integer_sqrt::IntegerSquareRoot;
 
 fn get_minimal_path_sum(file_name: &str) -> usize {
 	let mut matrix = read_file(file_name);
-	let side_len = matrix.len().integer_sqrt();
+	let n = matrix.len().integer_sqrt();
 
-	for i in 1..side_len {
+	for i in 1..n {
 		matrix[i] += matrix[i-1];
 	}
-	for i in (side_len..matrix.len()).step_by(side_len) {
-		matrix[i] += matrix[i-side_len];
-		for j in (i+1)..(i+side_len) {
-			matrix[j] += matrix[j-1].min(matrix[j-side_len]);
+	for i in (n..matrix.len()).step_by(n) {
+		matrix[i] += matrix[i-n];
+		for j in (i+1)..(i+n) {
+			matrix[j] += matrix[j-1].min(matrix[j-n]);
 		}
 	}
 	matrix[matrix.len() - 1]
