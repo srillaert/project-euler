@@ -11,7 +11,7 @@ fn is_2025_number(n: usize) -> Option<usize> {
 		}
 		divisor *= 10;
 	}
-	return None;	
+	return None;
 }
 
 #[test]
@@ -25,7 +25,7 @@ fn test_is_2025_number_2025() {
 }
 
 fn get_2025_numbers(till: usize) -> impl Iterator<Item = usize> {
-	let result = (4..till)
+	let result = (1..till)
 		.filter_map(|n| is_2025_number(n));
 	result
 }
