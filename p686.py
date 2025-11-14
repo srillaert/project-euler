@@ -1,9 +1,9 @@
 from math import floor, log10
 
-def calculate_p(L, n):	
-	divisor = pow(10, floor(log10(L)))
-	base_L = L / divisor
-	min, max = log10(base_L), log10(base_L + 1 / divisor)
+def calculate_p(L, n):
+	power_of_10 = pow(10, floor(log10(L)))
+	base_L = L / power_of_10
+	min, max = log10(base_L), log10(base_L + 1 / power_of_10)
 	digits_log = log10_of_2 = log10(2)
 	power = 1
 	while True:
