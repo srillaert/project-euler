@@ -4,6 +4,11 @@ from bs4 import BeautifulSoup
 import re
 import requests
 
+def parse_tooltip(tooltip):
+	main_text = tooltip.find(text=True, recursive=False)
+	tooltiptext_span = tooltip.find("span", class_="tooltiptext")
+	return f"{main_text} ({tooltiptext_span.get_text()})"
+
 def parse_paragraph(soup):
 	sb = []
 	for child in soup.children:
@@ -12,7 +17,10 @@ def parse_paragraph(soup):
 		elif child.name == "dfn":
 			sb.append(f"_{child.text}_")
 		elif child.name == "strong":
-			sb.append(f"**{child.text}**")
+			if child.has_attr('class') and child.attrs['class'][0] == 'tooltip':
+				sb.append(parse_tooltip(child))
+			else:
+				sb.append(f"**{child.text}**")
 		else:
 			text = child.text.replace("\n", "")
 			text = re.sub(

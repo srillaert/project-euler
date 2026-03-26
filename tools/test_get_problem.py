@@ -50,3 +50,10 @@ def test_parse_paragraph_double_dollar_sign():
 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, \dots
 ```"""
 	assert actual == expected
+
+def test_parse_paragraph_tooltip():
+	input_html = r"""What is the smallest positive number that is <strong class="tooltip">evenly divisible<span class="tooltiptext">divisible with no remainder</span></strong> by all of the numbers from $1$ to $20$?"""
+	paragraph = BeautifulSoup(input_html, 'html.parser')
+	actual = parse_paragraph(paragraph)
+	expected = r"""What is the smallest positive number that is evenly divisible (divisible with no remainder) by all of the numbers from $1$ to $20$?"""
+	assert actual == expected
