@@ -3,9 +3,7 @@
 
 uint_fast32_t sum_of_squares(uint_fast8_t n) {
 	uint_fast32_t sum = 0;
-	for(uint_fast16_t i = 1; i <= n; i++)
-		sum += i * i;
-
+	for(uint_fast16_t i = 1; i <= n; i++) sum += i * i;
 	return sum;
 }
 
